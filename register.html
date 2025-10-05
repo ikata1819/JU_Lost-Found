@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - JU Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h2 style="color: var(--primary); margin: 0; font-weight: 700;">🛡️ JU Lost & Found</h2>
+            <small style="color: var(--secondary);">Jahangirnagar University</small>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Register</h2>
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const container = document.querySelector('.form-container');
+                if (urlParams.has('error')) {
+                    const message = document.createElement('div');
+                    message.className = 'message error';
+                    message.textContent = decodeURIComponent(urlParams.get('error'));
+                    container.insertBefore(message, container.firstChild);
+                }
+            </script>
+            <form action="php/register_process.php" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <select name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="staff">Staff</option>
+                </select>
+                <input type="text" name="dept" placeholder="Department" required>
+                <input type="text" name="user_id" placeholder="User ID (e.g., Student ID)" required>
+                <select name="usertype" required>
+                    <option value="lost">Lost Item Reporter</option>
+                    <option value="found">Found Item Reporter</option>
+                </select>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Jahangirnagar University. All rights reserved.</p>
+    </footer>
+</body>
+</html>

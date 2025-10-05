@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - JU Lost & Found</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h2 style="color: var(--primary); margin: 0; font-weight: 700;">🛡️ JU Lost & Found</h2>
+            <small style="color: var(--secondary);">Jahangirnagar University</small>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Login</h2>
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const container = document.querySelector('.form-container');
+                if (urlParams.has('error')) {
+                    const message = document.createElement('div');
+                    message.className = 'message error';
+                    message.textContent = decodeURIComponent(urlParams.get('error'));
+                    container.insertBefore(message, container.firstChild);
+                } else if (urlParams.has('msg')) {
+                    const message = document.createElement('div');
+                    message.className = 'message success';
+                    message.textContent = decodeURIComponent(urlParams.get('msg'));
+                    container.insertBefore(message, container.firstChild);
+                }
+            </script>
+            <form action="php/login_process.php" method="POST">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="register.html">Register</a></p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Jahangirnagar University. All rights reserved.</p>
+    </footer>
+</body>
+</html>
