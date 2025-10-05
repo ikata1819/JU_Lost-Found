@@ -1,0 +1,318 @@
+/* Winter Chill Palette: Serene Blues & Grays */
+:root {
+    --primary: #082E33;
+    --secondary: #4F7C82;
+    --accent: #93B1B5;
+    --bg-light: #BBE3E9;
+    --text-dark: #082E33;
+    --white: #FFFFFF;
+    --danger: #4F7C82;
+}
+
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--white);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow for chill vibe */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #0a3a40; /* Slightly lighter primary for hover */
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+    background-color: #5d8a92;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: var(--bg-light);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, var(--primary), var(--accent)); /* Chill gradient: dark to mid */
+    color: var(--white);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.search-form {
+    margin: 2rem 0;
+}
+
+.search-wrapper {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.search-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    background: var(--white);
+    outline: none;
+    color: var(--text-dark);
+}
+
+.search-btn {
+    background: var(--secondary);
+    border: none;
+    padding: 1rem 1.5rem;
+    color: var(--white);
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+    background: var(--primary);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.stat-card h3 {
+    color: var(--accent); /* Soft accent for numbers */
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    font-weight: 700;
+}
+
+.stat-card p {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+.how-it-works {
+    padding: 4rem 2rem;
+    background: var(--white);
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+    color: var(--primary);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step {
+    padding: 1.5rem;
+    border-left: 4px solid var(--accent);
+    background: var(--bg-light);
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.step:hover {
+    background: var(--white);
+}
+
+.step-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.step h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.step p {
+    color: var(--secondary);
+    margin: 0;
+}
+
+.dashboard-section {
+    padding: 2rem;
+    background: var(--white);
+    margin: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--accent);
+}
+
+footer {
+    background-color: var(--secondary);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    opacity: 0.9;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.success { 
+    background-color: #d4edda; 
+    color: var(--accent); /* Tie to palette */
+    border-left: 4px solid var(--accent);
+}
+
+.error { 
+    background-color: #f8d7da; 
+    color: var(--danger); 
+    border-left: 4px solid var(--danger);
+}
+
+/* Logo in Header */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.logo small {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    color: var(--secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    nav ul { flex-direction: column; gap: 0.5rem; }
+}
