@@ -1,0 +1,288 @@
+:root {
+    --primary: #082e33; /* Dark Teal/Green */
+    --secondary: #4f7c82; /* Muted Teal/Grey */
+    --accent: #93b1b5; /* Light Accent/Cool Grey */
+    --bg-light: #bbe3e9; /* Very Light Teal/Blue Background */
+    --white: #ffffff;
+    --green: #4caf50;
+    --orange: #ff9800;
+    --yellow: #ffeb3b;
+    --red: #e57373;
+    
+    /* --- NEW/MODIFIED CONTRAST VARIABLES --- */
+    --card-bg: var(--white); /* 1. Match Card is now pure White */
+    --report-bg: #f8fdfc; /* 2. Inner Sections (Grid) are a very subtle off-white */
+    --text-dark: var(--primary); /* Variable for general text, helpful for the body */
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--primary);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 40px;
+    font-size: 2.2em;
+    font-weight: 300;
+}
+
+/* --- Match Card Structure --- */
+.match-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.match-card {
+    /* Uses --card-bg, which is now var(--white) */
+    background-color: var(--card-bg); 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(8, 46, 51, 0.1);
+    padding: 25px 30px;
+    width: 90%;
+    max-width: 900px;
+    border: 1px solid var(--accent);
+    transition: all 0.3s ease-in-out;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(8, 46, 51, 0.15);
+}
+
+/* --- Header and Score --- */
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--accent);
+}
+
+.match-count {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* --- Match Bar --- */
+.match-bar {
+    height: 6px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    transition: width 0.4s ease;
+}
+
+.match-bar.green {
+    background-color: var(--green);
+    width: 100% !important;
+}
+.match-bar.orange {
+    background-color: var(--orange);
+    width: 66% !important;
+}
+.match-bar.yellow {
+    background-color: var(--yellow);
+    width: 33% !important;
+}
+
+/* --- Two-Column Layout (The 'Table' Look) --- */
+.item-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--accent); /* Using accent for a cleaner outline */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.lost-report,
+.found-report {
+    /* Uses --report-bg for slight contrast against the white card background */
+    background-color: var(--report-bg); 
+    padding: 15px 20px;
+    border-right: 1px solid var(--accent); /* Using accent color for separators */
+}
+
+.found-report {
+    border-right: none;
+}
+
+.lost-report h3,
+.found-report h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted var(--accent);
+    font-weight: 600;
+}
+
+.lost-report h3 {
+    color: var(--red);
+}
+.found-report h3 {
+    color: var(--secondary);
+}
+
+.item-grid p {
+    margin: 8px 0;
+    font-size: 0.95em;
+}
+
+/* Match highlight */
+.item-grid .match-highlight {
+    color: var(--green);
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* --- Description Section --- */
+.desc-section {
+    padding: 15px 0;
+    margin-top: 15px;
+    font-size: 0.9em;
+    border-top: 1px solid var(--accent);
+}
+
+.desc-section p {
+    margin: 5px 0;
+}
+
+.desc-section strong {
+    color: var(--secondary);
+}
+
+/* --- Emails/Contact Section --- */
+.emails {
+    background-color: var(--bg-light); 
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    margin-top: 20px;
+    border: 1px solid var(--accent);
+}
+
+.emails strong {
+    color: var(--primary);
+    display: inline-block;
+    min-width: 140px;
+}
+
+.emails a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.emails a:hover {
+    text-decoration: underline;
+    color: var(--secondary);
+}
+
+/* --- Image Display Section (Ensures contrast against white card) --- */
+.image-display {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    margin-top: 15px;
+    background-color: #f0f8ff; /* Light accent for high-match section (could be set to var(--report-bg) for consistency) */
+    border-radius: 8px;
+    border: 2px solid var(--secondary);
+    gap: 10px;
+}
+
+.image-display img {
+    max-width: 45%;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 4px solid var(--white);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.no-image-text {
+    color: var(--secondary);
+    font-style: italic;
+    text-align: center;
+    width: 45%;
+}
+
+.image-separator {
+    font-size: 2em;
+    color: var(--primary);
+    font-weight: bold;
+}
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.site-header {
+    background-color: var(--white);
+    border-bottom: 3px solid var(--secondary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
+.logo small {
+    color: var(--secondary);
+    font-size: 0.85rem;
+}
+
+.site-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.site-nav a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--secondary);
+    transition: color 0.3s ease;
+}
+
+.site-nav a:hover {
+    color: var(--primary);
+}
+
+/* Optional: Responsive */
+@media (max-width: 600px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .site-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

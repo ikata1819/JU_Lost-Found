@@ -5,71 +5,141 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - JU Lost & Found</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="./css/lostfound.css" rel="stylesheet">
+    
+    <script src="js/script.js" defer></script>
+    <script src="js/lostfound.js" defer></script>
+
+    
 </head>
+
 <body>
-    <header>
+<header class="shadow-sm mb-4" style="background-color: white; border-bottom: 3px solid #4F7C82;">
+    <div class="container d-flex justify-content-between align-items-center py-3">
         <div class="logo">
-            <h2 style="color: var(--primary); margin: 0; font-weight: 700;">🛡 JU Lost & Found</h2>
-            <small style="color: var(--secondary);">Jahangirnagar University</small>
+            <h2 class="fw-bold mb-0" style="color: #082E33;">🛡️ JU Lost & Found</h2>
+            <small style="color: #4F7C82;">Jahangirnagar University</small>
         </div>
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="php/logout.php">Logout</a></li>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="index.html" style="color: #4F7C82;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#report-lost" style="color: #165ebdff;">Report Lost</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#report-found" style="color: #165ebdff">Report Found</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="#search-items" style="color: #165ebdff">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link fw-semibold" href="match.php" style="color: #55ba93ff;">Match Report</a>
+                </li>
+                <li class="nav-item">
+                    <a  class="nav-link fw-semibold" href="php/logout.php" style="color: #dc3545;">Logout</a>
+                </li>
+                
             </ul>
         </nav>
-    </header>
-    <main>
-        <h1 id="welcome">Welcome! (Loading...)</h1>
-        <div class="dashboard-section">
-            <h2>Report Lost Item</h2>
-            <p>Describe your lost item here. (Form placeholder)</p>
-            <form style="max-width: 400px;">
-                <textarea placeholder="Description..."></textarea>
-                <input type="file" name="image">
-                <button type="submit" class="btn">Report Lost</button>
-            </form>
+    </div>
+</header>
+
+<!-- ✅ Popup message (hidden by default) -->
+<?php if (isset($_GET['msg'])): ?>
+    <div class="popup-msg" id="popup-msg">
+        <?= htmlspecialchars($_GET['msg']); ?>
+    </div>
+<?php endif; ?>
+
+<main class="container text-center">
+    <h1 id="welcome" class="mb-4 mt-8 fw-bold" style="color: #082E33;">Welcome! (Loading...)</h1>
+
+    <div class="row g-4">
+        <div class="col-md-5">
+            <div class="card shadow-sm p-4 text-white" style="background-color: #082E33;">
+                <h2 class="h4 mb-3 fw-bold">Report Lost Item</h2>
+                <form action="php/report_lost.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="text" name="item_name" class="form-control" placeholder="Item Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="description" class="form-control" placeholder="Description..." rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="last_seen_location" class="form-control" placeholder="Last Seen Location" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" name="lost_date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary w-100 fw-semibold">Report Lost</button>
+                </form>
+            </div>
         </div>
-        <div class="dashboard-section">
-            <h2>Report Found Item</h2>
-            <p>Share details of found item.</p>
-            <form style="max-width: 400px;">
-                <textarea placeholder="Description..."></textarea>
-                <input type="file" name="image">
-                <button type="submit" class="btn">Report Found</button>
-            </form>
+
+        <div class="col-md-5">
+            <div class="card shadow-sm p-4 text-white" style="background-color: #4F7C82;">
+                <h2 class="h4 mb-3 fw-bold">Report Found Item</h2>
+                <form action="php/report_found.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="text" name="item_name" class="form-control" placeholder="Item Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="description" class="form-control" placeholder="Description..." rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="found_location" class="form-control" placeholder="Found Location" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="collection_point" class="form-control" placeholder="Collection Point" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" name="found_date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-custom-success w-100 fw-semibold">Report Found</button>
+                </form>
+            </div>
         </div>
-        <div class="dashboard-section">
-            <h2>Search Items</h2>
-            <form class="search-form" style="max-width: 400px;">
-                <div class="search-wrapper">
-                    <input type="text" name="search" placeholder="Search by keyword, location...">
-                    <button type="submit" class="search-btn">🔍 Search</button>
-                </div>
-            </form>
-            <p>Search results will appear here.</p>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm p-4" style="background-color: #93B1B5; color: #082E33;">
+                <h2 class="h4 mb-3 fw-bold">Search Items</h2>
+                <form class="d-flex gap-2" action="php/search_items.php" method="GET">
+                    <input type="text" name="search" class="form-control" placeholder="Search by keyword, location..." style="flex: 1;">
+                    <button type="submit" class="btn btn-custom-outline fw-semibold">🔍 Search</button>
+                </form>
+                <p class="mt-3 mb-0" style="color: #082E33; opacity: 0.7;">Search results will appear here.</p>
+            </div>
         </div>
-        <div class="dashboard-section">
-            <h2>User Manual</h2>
-            <ul>
-                <li>Step 1: Register/Login</li>
-                <li>Step 2: Report lost/found items</li>
-                <li>Step 3: Use search to match</li>
-                <li>Step 4: Claim with proof</li>
-            </ul>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 Jahangirnagar University. All rights reserved.</p>
-    </footer>
+    </div>
+</main>
+
+<footer class="text-center mt-5 py-3 text-white" style="background-color: #082E33;">
+    <p class="mb-0">&copy; 2025 Jahangirnagar University. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 </body>
 </html>
