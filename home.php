@@ -66,8 +66,8 @@ if (!isset($_SESSION['user_id'])) {
 <main class="container text-center">
     <h1 id="welcome" class="mb-4 mt-8 fw-bold" style="color: #082E33;">Welcome! (Loading...)</h1>
 
-    <div class="row g-4">
-        <div class="col-md-5">
+    <div class="row g-4" >
+        <div class="col-md-5" id="report-lost">
             <div class="card shadow-sm p-4 text-white" style="background-color: #082E33;">
                 <h2 class="h4 mb-3 fw-bold">Report Lost Item</h2>
                 <form action="php/report_lost.php" method="POST" enctype="multipart/form-data">
@@ -91,7 +91,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-5" id="report-found">
             <div class="card shadow-sm p-4 text-white" style="background-color: #4F7C82;">
                 <h2 class="h4 mb-3 fw-bold">Report Found Item</h2>
                 <form action="php/report_found.php" method="POST" enctype="multipart/form-data">
@@ -119,7 +119,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center mt-4" id="search-items">
         <div class="col-md-12">
             <div class="card shadow-sm p-4" style="background-color: #93B1B5; color: #082E33;">
                 <h2 class="h4 mb-3 fw-bold">Search Items</h2>
@@ -132,6 +132,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 </main>
+
 
 <footer class="text-center mt-5 py-3 text-white" style="background-color: #082E33;">
     <p class="mb-0">&copy; 2025 Jahangirnagar University. All rights reserved.</p>
