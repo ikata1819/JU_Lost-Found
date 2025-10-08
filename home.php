@@ -123,11 +123,26 @@ if (!isset($_SESSION['user_id'])) {
         <div class="col-md-12">
             <div class="card shadow-sm p-4" style="background-color: #93B1B5; color: #082E33;">
                 <h2 class="h4 mb-3 fw-bold">Search Items</h2>
-                <form class="d-flex gap-2" action="php/search_items.php" method="GET">
-                    <input type="text" name="search" class="form-control" placeholder="Search by keyword, location..." style="flex: 1;">
-                    <button type="submit" class="btn btn-custom-outline fw-semibold">🔍 Search</button>
+                <form class="row g-2 align-items-center" action="php/search_items.php" method="GET">
+                    <div class="col-sm-4">
+                        <input type="text" name="item_name" class="form-control" placeholder="Item name">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" name="person_name" class="form-control" placeholder="Person name">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" name="location" class="form-control" placeholder="Location">
+                    </div>
+                    <div class="col-sm-2 d-flex gap-2">
+                        <select name="type" class="form-select">
+                            <option value="">Any</option>
+                            <option value="lost">Lost</option>
+                            <option value="found">Found</option>
+                        </select>
+                        <button type="submit" class="btn btn-custom-outline fw-semibold">🔍</button>
+                    </div>
                 </form>
-                <p class="mt-3 mb-0" style="color: #082E33; opacity: 0.7;">Search results will appear here.</p>
+                <p class="mt-3 mb-0" style="color: #082E33; opacity: 0.7;">Search results will open on a separate page.</p>
             </div>
         </div>
     </div>
