@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
             <small style="color: #4F7C82;">Jahangirnagar University</small>
         </div>
         <nav>
-            <ul class="nav">
+            <ul class="nav align-items-center">
                 <li class="nav-item">
                     <a class="nav-link fw-semibold" href="index.html" style="color: #4F7C82;">Home</a>
                 </li>
@@ -51,6 +51,20 @@ if (!isset($_SESSION['user_id'])) {
                     <a  class="nav-link fw-semibold" href="php/logout.php" style="color: #dc3545;">Logout</a>
                 </li>
                 
+                <!-- Profile dropdown -->
+                <li class="nav-item dropdown ms-3">
+                    <?php $displayName = isset($_SESSION['name']) ? $_SESSION['name'] : 'User';
+                          $initial = strtoupper(substr($displayName,0,1)); ?>
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #082E33;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#4F7C82;color:white;display:flex;align-items:center;justify-content:center;margin-right:8px;font-weight:600;"><?= htmlspecialchars($initial) ?></div>
+                        <span class="fw-semibold"><?= htmlspecialchars($displayName) ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="php/logout.php">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
