@@ -1,5 +1,5 @@
 <?php
-require 'db_config.php'; // adjust path if needed
+require __DIR__ . '/db_config.php'; // ✅ safer path
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -8,40 +8,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($lost_id > 0 && $found_id > 0) {
         try {
-            // Begin transaction (optional but safe)
             $pdo->beginTransaction();
 
-            // Mark both lost and found reports as inactive
             $stmt1 = $pdo->prepare("UPDATE lost_items SET is_active = 0 WHERE lost_id = ?");
             $stmt1->execute([$lost_id]);
 
             $stmt2 = $pdo->prepare("UPDATE found_items SET is_active = 0 WHERE found_id = ?");
             $stmt2->execute([$found_id]);
 
-            // Optionally insert into a "matched_items" table
+            // optional: record match
             /*
-            $stmt3 = $pdo->prepare("
-                INSERT INTO matched_items (lost_id, found_id, matched_date)
-                VALUES (?, ?, NOW())
-            ");
+            $stmt3 = $pdo->prepare("INSERT INTO matched_items (lost_id, found_id, matched_date)
+                                    VALUES (?, ?, NOW())");
             $stmt3->execute([$lost_id, $found_id]);
             */
 
             $pdo->commit();
-
-            echo json_encode(['success' => true]);
-            exit;
+            echo json_encode(['success' => true, 'message' => 'Records updated successfully']);
         } catch (Exception $e) {
             $pdo->rollBack();
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-            exit;
         }
     } else {
-        echo json_encode(['success' => false, 'error' => 'Invalid IDs provided']);
-        exit;
+        echo json_encode(['success' => false, 'error' => 'Invalid IDs']);
     }
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
-    exit;
 }
 ?>

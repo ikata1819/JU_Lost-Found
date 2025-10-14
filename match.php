@@ -28,15 +28,25 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matched Reports - JU Lost & Found</title>
-    <link href="./css/match.css" rel="stylesheet">
-    <link href="./css/match-btn.css" rel="stylesheet">
-    <link href="./css/profile.css" rel="stylesheet">
-    <script src="./js/match.js"></script>
-
+    <link href="css/match.css" rel="stylesheet">
+    <link href="css/match-btn.css" rel="stylesheet">
 
 </head>
 <body>
-<?php include __DIR__ . '/partials/header.php'; ?>
+<header class="site-header">
+    <div class="container">
+        <div class="logo">
+            <h2>🛡️ JU Lost & Found</h2>
+            <small>Jahangirnagar University</small>
+        </div>
+        <nav class="site-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="home.php">Report Dashboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
 <h1>🔍 Matched Lost & Found Reports</h1>
 
@@ -157,9 +167,32 @@ if ($rows && count($rows) > 0) {
 ?>
 </div>
 
-<footer class="text-center mt-5 py-3 text-white" style="background-color: #082E33; color:white; text:center">
-     <p class="mb-0">&copy;  Team জাবি পড়ে পাওয়া. All rights reserved.| Built for the Community</p>
-</footer>
+<!-- ✅ JavaScript for AJAX -->
+<script>
+document.querySelectorAll('.mark-matched-btn').forEach(button => {
+    button.addEventListener('click', async function () {
+        const form = this.closest('.match-form');
+        const lost_id = form.dataset.lost;
+        const found_id = form.dataset.found;
+
+        if (confirm('Mark this pair as matched? This will remove them from the active list.')) {
+            const response = await fetch('./php/mark_matched.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `lost_id=${lost_id}&found_id=${found_id}`
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Marked as matched successfully!');
+                form.closest('.match-card').remove();
+            } else {
+                alert('Error: ' + (result.error || 'Something went wrong.'));
+            }
+        }
+    });
+});
+</script>
 
 </body>
 </html>
