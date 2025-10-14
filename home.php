@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="./css/lostfound.css" rel="stylesheet">
+        <link href="./css/profile.css" rel="stylesheet">
     
     <script src="js/script.js" defer></script>
     <script src="js/lostfound.js" defer></script>
@@ -24,37 +25,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-<header class="shadow-sm mb-4" style="background-color: white; border-bottom: 3px solid #4F7C82;">
-    <div class="container d-flex justify-content-between align-items-center py-3">
-        <div class="logo">
-            <h2 class="fw-bold mb-0" style="color: #082E33;">🛡️ JU Lost & Found</h2>
-            <small style="color: #4F7C82;">Jahangirnagar University</small>
-        </div>
-        <nav>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link fw-semibold" href="index.html" style="color: #4F7C82;">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-semibold" href="#report-lost" style="color: #165ebdff;">Report Lost</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-semibold" href="#report-found" style="color: #165ebdff">Report Found</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fw-semibold" href="#search-items" style="color: #165ebdff">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a  class="nav-link fw-semibold" href="match.php" style="color: #55ba93ff;">Match Report</a>
-                </li>
-                <li class="nav-item">
-                    <a  class="nav-link fw-semibold" href="php/logout.php" style="color: #dc3545;">Logout</a>
-                </li>
-                
-            </ul>
-        </nav>
-    </div>
-</header>
+<?php include __DIR__ . '/partials/header.php'; ?>
 
 <!-- ✅ Popup message (hidden by default) -->
 <?php if (isset($_GET['msg'])): ?>
