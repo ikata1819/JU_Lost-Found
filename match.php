@@ -2,7 +2,15 @@
 session_start();
 require 'php/db_config.php'; // Using your PDO connection
 
-// Fetch all active lost and found items with user emails AND image URLs
+// Make sure user is logged in
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$currentUserEmail = $_SESSION['email'];
+
+// Fetch only active lost and found items related to current user (either posted as lost or found)
 $sql = "
 SELECT 
     l.lost_id, l.item_name AS lost_item, l.description AS lost_description,
@@ -16,9 +24,11 @@ JOIN users u1 ON l.user_id = u1.id
 JOIN found_items f ON f.is_active = 1
 JOIN users u2 ON f.user_id = u2.id
 WHERE l.is_active = 1
+  AND (u1.email = :userEmail OR u2.email = :userEmail)
 ";
 
-$stmt = $pdo->query($sql);
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['userEmail' => $currentUserEmail]);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -31,13 +41,11 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="css/match.css" rel="stylesheet">
     <link href="css/match-btn.css" rel="stylesheet">
     <link href="css/profile.css" rel="stylesheet">
-
-
 </head>
 <body>
 <?php include __DIR__ . '/partials/header.php'; ?>
 
-<h1>🔍 Matched Lost & Found Reports</h1>
+<h1>🔍 Matched Lost & Found Reports (Your Reports)</h1>
 
 <div class="match-container">
 <?php
@@ -47,13 +55,12 @@ if ($rows && count($rows) > 0) {
     foreach ($rows as $row) {
         $matchCount = 0;
 
-        // Case-insensitive comparisons
         $nameMatch = (strcasecmp(trim($row['lost_item']), trim($row['found_item'])) == 0);
         $locationMatch = (strcasecmp(trim($row['lost_location']), trim($row['found_location'])) == 0);
 
-        // Only check date if name or location matched
         if ($nameMatch) $matchCount++;
         if ($locationMatch) $matchCount++;
+
         $dateMatch = false;
         if ($nameMatch || $locationMatch) {
             if ($row['lost_date'] == $row['found_date']) {
@@ -62,21 +69,15 @@ if ($rows && count($rows) > 0) {
             }
         }
 
-        // Skip if no name/location match
         if (!$nameMatch && !$locationMatch) continue;
 
         $foundMatch = true;
-
-        // Choose bar color based on score
         $barColor = ($matchCount == 3) ? 'green' : (($matchCount == 2) ? 'orange' : 'yellow');
-
         $matchSpan = "<span class='match-highlight'>*MATCH*</span>";
 
-        // Correct image paths
         $lostImagePath = str_replace('../uploads/', 'uploads/', trim($row['lost_image']));
         $foundImagePath = str_replace('../uploads/', 'uploads/', trim($row['found_image']));
 
-        // --- Start HTML Output ---
         echo "
         <div class='match-card'>
             <div class='match-header'>
@@ -85,7 +86,6 @@ if ($rows && count($rows) > 0) {
             </div>
             <div class='match-bar {$barColor}'></div>";
 
-        // --- Conditional Image Display ---
         if ($matchCount >= 2) {
             echo "
             <h4 style='text-align: center; color: var(--primary); margin-bottom: 5px;'>
@@ -93,7 +93,6 @@ if ($rows && count($rows) > 0) {
             </h4>
             <div class='image-display'>";
 
-            // Lost Image
             if (!empty($lostImagePath) && file_exists($lostImagePath)) {
                 echo "<img src='{$lostImagePath}' alt='Lost Item Image'>";
             } else {
@@ -102,7 +101,6 @@ if ($rows && count($rows) > 0) {
 
             echo "<span class='image-separator'>&#8644;</span>";
 
-            // Found Image
             if (!empty($foundImagePath) && file_exists($foundImagePath)) {
                 echo "<img src='{$foundImagePath}' alt='Found Item Image'>";
             } else {
@@ -112,7 +110,6 @@ if ($rows && count($rows) > 0) {
             echo "</div>";
         }
 
-        // --- Reports and Details ---
         echo "
             <div class='item-grid' style='margin-top: " . ($matchCount >= 2 ? '20px' : '0') . ";'>
                 <div class='lost-report'>
@@ -139,7 +136,6 @@ if ($rows && count($rows) > 0) {
                 <p><strong>Found Reported By:</strong> <a href='mailto:{$row['found_email']}'>{$row['found_email']}</a></p>
             </div>
 
-            <!-- ✅ Matched Button -->
             <form method='POST' action='./php/mark_matched.php' class='match-form' 
                 data-lost='{$row['lost_id']}' data-found='{$row['found_id']}'>
                 <button type='button' class='mark-matched-btn'>Mark as Matched</button>
@@ -148,15 +144,14 @@ if ($rows && count($rows) > 0) {
     }
 
     if (!$foundMatch) {
-        echo "<p>No matches found with current criteria (must match by item name OR location).</p>";
+        echo "<p>No matches found for your reports.</p>";
     }
 } else {
-    echo "<p>No reports found in the database.</p>";
+    echo "<p>No reports found for your account.</p>";
 }
 ?>
 </div>
 
-<!-- ✅ JavaScript for AJAX -->
 <script>
 document.querySelectorAll('.mark-matched-btn').forEach(button => {
     button.addEventListener('click', async function () {
