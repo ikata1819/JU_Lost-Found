@@ -30,23 +30,12 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Matched Reports - JU Lost & Found</title>
     <link href="css/match.css" rel="stylesheet">
     <link href="css/match-btn.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+
 
 </head>
 <body>
-<header class="site-header">
-    <div class="container">
-        <div class="logo">
-            <h2>🛡️ JU Lost & Found</h2>
-            <small>Jahangirnagar University</small>
-        </div>
-        <nav class="site-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="home.php">Report Dashboard</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<?php include __DIR__ . '/partials/header.php'; ?>
 
 <h1>🔍 Matched Lost & Found Reports</h1>
 
