@@ -1,5 +1,9 @@
 <?php
 // Shared header partial. Assumes it's included from project root files like home.php and profile.php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+$homeHref = isset($_SESSION['user_id']) ? 'home.php' : 'index.html';
 ?>
 <header class="shadow-sm mb-4" style="background-color: white; border-bottom: 3px solid #4F7C82;">
     <div class="container d-flex justify-content-between align-items-center py-3">
@@ -9,7 +13,7 @@
         </div>
         <nav>
             <ul class="nav align-items-center" style="width:100%">
-                <li class="nav-item"><a class="nav-link fw-semibold" href="index.html" style="color: #4F7C82;">Home</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold" href="<?= htmlspecialchars($homeHref); ?>" style="color: #4F7C82;">Home</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#report-lost" style="color: #165ebdff;">Report Lost</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#report-found" style="color: #165ebdff;">Report Found</a></li>
                 <li class="nav-item"><a class="nav-link fw-semibold" href="#search-items" style="color: #165ebdff;">Search</a></li>
