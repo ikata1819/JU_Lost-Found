@@ -42,3 +42,28 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.querySelector('footer');
+    const body = document.body;
+    const html = document.documentElement;
+
+    function adjustFooter() {
+        const bodyHeight = Math.max(body.scrollHeight, body.offsetHeight,
+                                    html.clientHeight, html.scrollHeight, html.offsetHeight);
+        const windowHeight = window.innerHeight;
+
+        if (bodyHeight < windowHeight) {
+            footer.style.position = 'absolute';
+            footer.style.bottom = '0';
+            footer.style.width = '100%';
+        } else {
+            footer.style.position = 'static';
+        }
+    }
+
+    adjustFooter();
+    window.addEventListener('resize', adjustFooter);
+});

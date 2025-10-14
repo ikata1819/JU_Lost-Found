@@ -88,8 +88,10 @@ usort($allItems, function($a, $b) {
     <?php endif; ?>
 </main>
 
-<footer class="text-center mt-5 py-3 text-white" style="background-color: #082E33;">
-    <p class="mb-0">&copy; 2025 Jahangirnagar University. All rights reserved.</p>
+<footer class="bg-white shadow-sm mt-5" style="border-top: 3px solid #4F7C82;">
+    <div class="container text-center py-4">
+        <p class="mb-0">&copy; <?php echo date("Y"); ?> Team জাবি পড়ে পাওয়া. All rights reserved.| Built for the Community</p>
+    </div>
 </footer>
 
 </body>
