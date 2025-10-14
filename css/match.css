@@ -273,6 +273,7 @@ body {
     color: var(--primary);
 }
 
+
 /* Optional: Responsive */
 @media (max-width: 600px) {
     .site-header .container {
@@ -286,3 +287,5 @@ body {
         gap: 10px;
     }
 }
+
+
