@@ -13,6 +13,8 @@ if ($_POST) {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['name'] = $user['name'];
+        // store email in session for profile display
+        $_SESSION['email'] = $user['email'];
         header("Location: ../home.php");  // Updated to .php
         exit();
     } else {
