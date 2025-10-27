@@ -23,9 +23,8 @@ header {
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    /* align-items: center; */
-    gap: 15px; /* space between logo and nav */
+    flex-direction: column; 
+    gap: 15px; 
 }
 
 nav ul {
